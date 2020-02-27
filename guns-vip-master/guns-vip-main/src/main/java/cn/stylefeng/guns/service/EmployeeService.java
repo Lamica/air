@@ -29,4 +29,7 @@ public interface EmployeeService {
     void updateStatus(int status, String id, HttpServletRequest request);
     List<Employee> findByUsernameOrMobileOrRn(Employee employee);
     List<Employee> findByStatus(Integer status);
+    int countEmp();
+
+    void updateEmpPwd(String newPwd, String userId);
 }

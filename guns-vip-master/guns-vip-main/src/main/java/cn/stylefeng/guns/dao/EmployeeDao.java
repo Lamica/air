@@ -81,4 +81,14 @@ public interface EmployeeDao extends BaseMapper<Employee> {
             "</script>")
     List<Employee> findByStatus(@Param("status") Integer status);
 
+    @Select("select count(*) from tb_employee")
+    int countEmp();
+
+    /**
+     * 修改密码
+     * @param newPwd
+     * @param userId
+     */
+    @Update("update tb_employee e set e.t_password=#{newPwd} where e.id=#{userId}")
+    void updateEmpPwd(String newPwd, String userId);
 }

@@ -204,4 +204,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findByStatus(Integer status) {
         return employeeDao.findByStatus(status);
     }
+
+    @Override
+    public int countEmp() {
+        return employeeDao.countEmp();
+    }
+
+    @Override
+    public void updateEmpPwd(String newPwd, String userId) {
+        employeeDao.updateEmpPwd(newPwd,userId);
+    }
+
 }

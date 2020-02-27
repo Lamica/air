@@ -77,8 +77,9 @@ public class AdminController {
     @ApiOperation("查询员工 （管理员）")
     public Result findEmpList(int page, int size){
         try {
+            int total = employeeService.countEmp();
             List<Employee> emp = employeeService.findEmpList(page,size);
-            return new Result(true, ResultStatusCode.SUCCESS, "查询成功!", emp);
+            return new Result(true, ResultStatusCode.SUCCESS,total, "查询成功!", emp);
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false, ResultStatusCode.FAIL, "查询失败!");
@@ -110,8 +111,9 @@ public class AdminController {
     @ApiOperation("根据输入框的条件查询员工 （管理员）")
     public Result findByUsernameOrMobileOrRn(@RequestBody Employee employee) {
         try {
+            int total = employeeService.countEmp();
             List<Employee> usernameOrMobileOrRn = employeeService.findByUsernameOrMobileOrRn(employee);
-            return new Result(true, ResultStatusCode.SUCCESS, "查询成功!", usernameOrMobileOrRn);
+            return new Result(true, ResultStatusCode.SUCCESS,total, "查询成功!", usernameOrMobileOrRn);
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false, ResultStatusCode.FAIL, "查询失败!");
@@ -125,8 +127,9 @@ public class AdminController {
     @ApiOperation("根据状态查询员工 （管理员）")
     public Result findByStatus(Integer status) {
         try {
+            int total = employeeService.countEmp();
             List<Employee> sta = employeeService.findByStatus(status);
-            return new Result(true, ResultStatusCode.SUCCESS, "查询成功!", sta);
+            return new Result(true, ResultStatusCode.SUCCESS,total, "查询成功!", sta);
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false, ResultStatusCode.FAIL, "查询失败!");
@@ -186,6 +189,38 @@ public class AdminController {
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false, ResultStatusCode.FAIL, "删除失败!");
+        }
+    }
+
+    /**
+     * 修改员工密码
+     */
+    @PutMapping("/updateEmpPwd")
+    @ResponseBody
+    @ApiOperation("修改员工密码")
+    public Result updateEmpPwd(String id,@RequestBody Map<String,String> twoPwdMap, HttpServletRequest request) {
+        try {
+            String oldPwd = twoPwdMap.get("oldPwd");
+            String newPwd = twoPwdMap.get("newPwd");
+            // 获取当前登录用户id
+            String userId = (String) request.getSession().getAttribute("id");
+            // 查询当前旧密码
+            Employee empPwd = employeeService.findById(userId);
+            //对输入的旧密码进行加密密码
+            String oldPassword = new Md5Hash(oldPwd, empPwd.gettUsername(), 3).toString();  //1.密码，盐，加密次数
+
+            // 新密码加密
+            String newPassword = new Md5Hash(newPwd, empPwd.gettUsername(), 3).toString();  //1.密码，盐，加密次数
+            // 校验输入的旧密码和表中密码是否一致
+            if (empPwd.gettPassword().equals(oldPassword)) { // 说明旧密码正确
+                employeeService.updateEmpPwd(newPassword, userId);
+                return new Result(true, ResultStatusCode.SUCCESS, "修改密码成功!");
+            } else {
+                return new Result(false, ResultStatusCode.FAIL, "旧密码输出错误！!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, ResultStatusCode.FAIL, "修改密码失败!");
         }
     }
 
