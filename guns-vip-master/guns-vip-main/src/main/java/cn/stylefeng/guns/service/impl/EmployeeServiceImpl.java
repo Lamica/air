@@ -215,4 +215,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeDao.updateEmpPwd(newPwd,userId);
     }
 
+    @Override
+    public void updateLoginUserMobile(String mobile, String userId) {
+        employeeDao.updateLoginUserMobile(mobile,userId);
+    }
+
 }

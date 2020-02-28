@@ -43,6 +43,13 @@ public class Result {
         this.jwt = jwt;
     }
 
+    public Result(Object data, boolean success, Integer meta, String message) {
+        this.data = data;
+        this.success = success;
+        this.meta = meta;
+        this.message = message;
+    }
+
     public Result(boolean success, Integer meta, String message, Object data) {
         this.success = success;
         this.meta = meta;

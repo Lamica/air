@@ -19,7 +19,7 @@ public class Permission implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-      @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -40,6 +40,15 @@ public class Permission implements Serializable {
     @TableField("t_level")
     private Integer tLevel;
 
+    public Permission() {
+    }
+
+    public Permission(Integer id, String tName, Integer tPid, Integer tLevel) {
+        this.id = id;
+        this.tName = tName;
+        this.tPid = tPid;
+        this.tLevel = tLevel;
+    }
 
     public Integer getId() {
         return id;

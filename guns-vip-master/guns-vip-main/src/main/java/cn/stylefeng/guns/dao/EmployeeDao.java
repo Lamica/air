@@ -90,5 +90,14 @@ public interface EmployeeDao extends BaseMapper<Employee> {
      * @param userId
      */
     @Update("update tb_employee e set e.t_password=#{newPwd} where e.id=#{userId}")
-    void updateEmpPwd(String newPwd, String userId);
+    void updateEmpPwd(@Param("newPwd") String newPwd, @Param("userId") String userId);
+
+    /**
+     * 修改当前登录用户手机号
+     * @param mobile
+     * @param userId
+     * @return
+     */
+    @Update("update tb_employee e set e.t_mobile=#{mobile} where e.id=#{userId}")
+    void updateLoginUserMobile(@Param("mobile") String mobile,@Param("userId") String userId);
 }

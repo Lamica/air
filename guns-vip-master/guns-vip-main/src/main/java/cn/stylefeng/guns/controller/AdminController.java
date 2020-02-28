@@ -225,6 +225,40 @@ public class AdminController {
     }
 
     /**
+     * 查看当前登录用户信息
+     */
+    @GetMapping("/findLoginUser")
+    @ResponseBody
+    @ApiOperation("查看当前登录用户信息")
+    public Result findLoginUser(HttpServletRequest request) {
+        try {
+            // 获取当前登录用户id
+            String userId = (String) request.getSession().getAttribute("id");
+            Employee employee = employeeService.findById(userId);
+            return new Result(true, ResultStatusCode.SUCCESS, "查询当前登录用户信息成功!",employee);
+        } catch (Exception e) {
+            return new Result(false, ResultStatusCode.FAIL, "查询当前登录用户信息失败!");
+        }
+    }
+
+    /**
+     * 修改当前登录用户手机号
+     */
+    @PutMapping("/updateLoginUserMobile")
+    @ResponseBody
+    @ApiOperation("修改当前登录用户手机号")
+    public Result updateLoginUserMobile(String mobile, HttpServletRequest request) {
+        try {
+            // 获取当前登录用户id
+            String userId = (String) request.getSession().getAttribute("id");
+            employeeService.updateLoginUserMobile(mobile,userId);
+            return new Result(true, ResultStatusCode.SUCCESS, "修改当前登录用户手机号成功!");
+        } catch (Exception e) {
+            return new Result(false, ResultStatusCode.FAIL, "修改当前登录用户手机号失败!");
+        }
+    }
+
+    /**
      * 用户登录
      */
     @PostMapping("/login")

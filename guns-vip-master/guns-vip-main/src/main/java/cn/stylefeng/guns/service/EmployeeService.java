@@ -30,6 +30,6 @@ public interface EmployeeService {
     List<Employee> findByUsernameOrMobileOrRn(Employee employee);
     List<Employee> findByStatus(Integer status);
     int countEmp();
-
     void updateEmpPwd(String newPwd, String userId);
+    void updateLoginUserMobile(String mobile, String userId);
 }
