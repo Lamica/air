@@ -2,7 +2,9 @@ package cn.stylefeng.guns.base;
 
 import cn.stylefeng.guns.GunsApplication;
 import cn.stylefeng.guns.dao.PermissionDao;
+import cn.stylefeng.guns.dao.RoleDao;
 import cn.stylefeng.guns.pojo.PermissionNode;
+import cn.stylefeng.guns.pojos.RolePermissionNode;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +15,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.List;
 
 
 /**
@@ -28,9 +32,19 @@ public class BaseJunit {
     @Autowired
     private PermissionDao permissionDao;
 
+    @Autowired
+    private RoleDao roleDao;
+
     @Test
     public void test() {
-//        PermissionNode perList = permissionDao.selectList();
-//        System.out.println(perList);
+        List<PermissionNode> perList = permissionDao.selectList();
+        System.out.println(perList);
     }
+
+    @Test
+    public void testRole() {
+        List<RolePermissionNode> perList = roleDao.findByRoleId("1");
+        System.out.println(perList);
+    }
+
 }

@@ -1,26 +1,17 @@
-package cn.stylefeng.guns.pojo;
+package cn.stylefeng.guns.pojos;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author 
- * @since 2020-02-28
- */
-@TableName("tb_role")
-public class Role implements Serializable {
+import java.util.Date;
 
-    private static final long serialVersionUID=1L;
+public class RolePermission {
 
-      @TableId(value = "role_id", type = IdType.ID_WORKER)
+    @TableId(value = "id")
+    private Integer id;
+
+    @TableId(value = "role_id", type = IdType.ID_WORKER)
     private String roleId;
 
     /**
@@ -59,6 +50,24 @@ public class Role implements Serializable {
     @TableField("t_update_date")
     private Date tUpdateDate;
 
+
+    /**
+     * 权限名称
+     */
+    @TableField("t_name")
+    private String tName;
+
+    /**
+     * 父级权限ID
+     */
+    @TableField("t_pid")
+    private Integer tPid;
+
+    /**
+     * 权限级别
+     */
+    @TableField("t_level")
+    private Integer tLevel;
 
     public String getRoleId() {
         return roleId;
@@ -116,16 +125,27 @@ public class Role implements Serializable {
         this.tUpdateDate = tUpdateDate;
     }
 
-    @Override
-    public String toString() {
-        return "Role{" +
-        "roleId=" + roleId +
-        ", tRoleName=" + tRoleName +
-        ", tRoleDescription=" + tRoleDescription +
-        ", tIds=" + tIds +
-        ", tStatus=" + tStatus +
-        ", tCreateDate=" + tCreateDate +
-        ", tUpdateDate=" + tUpdateDate +
-        "}";
+    public String gettName() {
+        return tName;
+    }
+
+    public void settName(String tName) {
+        this.tName = tName;
+    }
+
+    public Integer gettPid() {
+        return tPid;
+    }
+
+    public void settPid(Integer tPid) {
+        this.tPid = tPid;
+    }
+
+    public Integer gettLevel() {
+        return tLevel;
+    }
+
+    public void settLevel(Integer tLevel) {
+        this.tLevel = tLevel;
     }
 }
