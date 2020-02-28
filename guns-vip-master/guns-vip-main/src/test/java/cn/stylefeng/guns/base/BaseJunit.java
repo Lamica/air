@@ -1,7 +1,10 @@
 package cn.stylefeng.guns.base;
 
 import cn.stylefeng.guns.GunsApplication;
+import cn.stylefeng.guns.dao.PermissionDao;
+import cn.stylefeng.guns.pojo.PermissionNode;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,21 +23,14 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = GunsApplication.class)
-@WebAppConfiguration
-//@Transactional //打开的话测试之后数据可自动回滚
 public class BaseJunit {
 
     @Autowired
-    WebApplicationContext webApplicationContext;
+    private PermissionDao permissionDao;
 
-    protected MockMvc mockMvc;
-
-    @Before
-    public void setupMockMvc() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
-
-    @Before
-    public void initDatabase() {
+    @Test
+    public void test() {
+//        PermissionNode perList = permissionDao.selectList();
+//        System.out.println(perList);
     }
 }
